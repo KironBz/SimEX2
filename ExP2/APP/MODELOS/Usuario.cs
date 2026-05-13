@@ -26,29 +26,42 @@
 
             LibrosRecetas[nombreLibro].Add(receta);
         }
-
-
-        /****************************************************************/
         public void EliminarLibro(string nombreLibro, Receta receta)
         {
+            if (!LibrosRecetas.ContainsKey(nombreLibro))
+                throw new KeyNotFoundException($"El libro '{nombreLibro}' no existe.");
 
+            LibrosRecetas.Remove(nombreLibro);
         }
-
-        public int ContarTotalRecetas()
+        public List<Receta> ObtenerLibro(string nombreLibro)
         {
-            // Suma todas las recetas de todos los libros
-            return LibrosRecetas.Values.Sum(lista => lista.Count);
+            if (!LibrosRecetas.ContainsKey(nombreLibro))
+                throw new KeyNotFoundException($"El libro '{nombreLibro}' no existe.");
+
+            return LibrosRecetas[nombreLibro];
         }
-
-        public void MostrarMisLibros()
+        public int ContarRecetas(string nombreLibro)
         {
-            Console.WriteLine($"\n--- Libros de {Nombre} ---");
+            if (!LibrosRecetas.ContainsKey(nombreLibro))
+                throw new KeyNotFoundException($"El libro '{nombreLibro}' no existe.");
+
+            return LibrosRecetas[nombreLibro].Count;
+        }
+        public void MostrarLibros()
+        {
+            if (LibrosRecetas.Count == 0)
+            {
+                Console.WriteLine("No hay libros registrados.");
+                return;
+            }
+
             foreach (var libro in LibrosRecetas)
             {
                 Console.WriteLine($"Libro: {libro.Key}");
+
                 foreach (var receta in libro.Value)
                 {
-                    Console.WriteLine($"  - {receta}");
+                    Console.WriteLine("   - " + receta.ToString());
                 }
             }
         }
