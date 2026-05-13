@@ -5,42 +5,68 @@ namespace PruebasExamen
 {
     public class GestorRecetasTests
     {
-        // 1. Agregar Receta
+        // 1. Agregar Receta / Eliminar Receta
 
         [Fact]
-        public void PruebasDeReceta_DebeImplementarUnaReceta()
+        public void AgregarReceta_AumentaCount_NoPermiteDuplicados()
         {
             // Arrange
-            var receta = new Receta("Paella, "Chef Ramirez", 45);
+            var g = new GestorRecetas();
+            var receta = new Receta("Paella Valenciana", "Chef Ramirez", 45);
+            
+            // Act
+            g.AgregarReceta(receta);
+            g.AgregarReceta(receta);
 
             // Assert
-            Assert.Equal("Paella", receta.Nombre);
-            Assert.Equal("Chef Ramirez", receta.Chef);
-            Assert.Equal(45, receta.TiempoMinutos);
-
+            Assert.Equal(1, g.RecetasDisponibles.Count);
         }
 
-        // 2. ToString()
-
         [Fact]
-        public void ToString_RegresaFormatoCorrecto()
+        public void EliminarReceta_DisminuyeCount()
         {
             // Arrange
-            var receta = new RecetaTest("Paella", "Chef Ramirez", 45);
+            var g = new GestorRecetas();
+            var receta = new Receta("Test", "Chef", 10);
 
-            // Act, Assert 
-            Assert.Equal("Paella - Chef Ramirez(45 min)", receta.ToString());
+            // Act
+            g.AgregarReceta(receta);
+            g.EliminarReceta(receta);
+
+            // Assert
+            Assert.Equal(0, g.RecetasDisponibles.Count);
         }
 
-        // 3. TiempoMinutos negativo o cero
+        // 2. BuscarPorNombre(Nombre)
 
         [Fact]
-
-        public void TiempoMinutos_EvaluaQueNoExistaAmbiguedadDeTiempo()
+        public void BuscarPorNombre_BusquedaParcial_caseInsensitive()
         {
-            // Assert
-            Assert.Throws<ArgumentException>(() => new Receta("Test", "Chef", -1));
+            // Arrange
+            var g = new GestorRecetas();
+            g.AgregarReceta(new Receta("Paella Valenciana", "Chef A", 45));
+            g.AgregarReceta(new Receta("Tacos Al Pastor", "Chef B", 20));
+
+
+            // Act 
+            var resultados = g.BuscarPorNombre("paella");
+            
+            //Assert 
+            Assert.Contains(resultados, r => r.Nombre == "Paella Valenciana");
         }
 
+        [Fact]
+        public void BuscarPorNombre_NoHayCoincidencias()
+        {
+            // Arrange
+            var g = new GestorRecetas();
+            g.AgregarReceta(new Receta("Paella", "Chef A", 45));
+
+            // Act
+            var resultados = g.BuscarPorNombre("Pizza");
+
+            // Assert
+            Assert.Empty(resultados);
+        }
     }
 }
