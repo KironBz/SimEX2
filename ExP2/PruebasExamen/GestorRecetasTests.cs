@@ -1,5 +1,7 @@
 using Xunit;
-// using
+using APP.MODELOS;
+using APP.GESTORES;
+using APP.INTERFACES;
 
 namespace PruebasExamen
 {
