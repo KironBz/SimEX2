@@ -1,48 +1,70 @@
-﻿using APP.GESTORES;
-using APP.INTERFACES;
+﻿using APP.INTERFACES.IGESTORRECETAS;
 namespace APP.GESTORES
 {
     public class GestorRecetas : IGestorRecetas
     {
-        private List<Receta> listaRecetas;
+        // Propiedades
+        public List<Receta> RecetasDisponibles { get; set; }
 
+        // Constructor
         public GestorRecetas()
         {
-            listaRecetas = new List<Receta>();
+            RecetasDisponibles = new List<Receta>();
         }
 
+        // Metodos 
         public void AgregarReceta(Receta receta)
         {
             if (receta == null) throw new ArgumentNullException(nameof(receta));
 
-            // Evitar duplicados por nombre
-            if (listaRecetas.Any(r => r.Nombre.Equals(receta.Nombre, StringComparison.OrdinalIgnoreCase)))
+            // Evita duplicados por nombre
+            if (RecetasDisponibles.Any(r => r.Nombre.Equals(receta.Nombre, StringComparison.OrdinalIgnoreCase)))
             {
                 throw new InvalidOperationException("La receta ya existe en el catálogo global.");
             }
 
-            listaRecetas.Add(receta);
+            RecetasDisponibles.Add(receta);
         }
 
         public void EliminarReceta(string nombre)
         {
-            var receta = listaRecetas.FirstOrDefault(r => r.Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase));
+            var receta = RecetasDisponibles.FirstOrDefault(r => r.Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase));
             if (receta != null)
             {
-                listaRecetas.Remove(receta);
+                RecetasDisponibles.Remove(receta);
             }
         }
 
         public void EliminarPorIndice(int indice)
         {
-            if (indice < 0 || indice >= listaRecetas.Count)
+            /*
+            if (indice < 0 || indice >= RecetasDisponibles.Count)
                 throw new IndexOutOfRangeException("Índice fuera de los límites del catálogo.");
+            */
 
-            listaRecetas.RemoveAt(indice);
+            RecetasDisponibles.RemoveAt(indice);
         }
 
-        // Implementación de Búsqueda Binaria (Requiere que la lista esté ordenada por Nombre)
-        public Receta BuscarPorNombre(string nombre)
+        public List<Receta> BusquedaPorNombre(string nombre)
+        {
+            return RecetasDisponibles.Where(r => r.Nombre.Contains(nombre, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+
+        public void LimpiarCatalogo()
+        {
+
+        }
+
+
+
+
+
+
+
+
+
+
+        public Receta BusquedaBinaria(string nombre)
         {
             // Primero ordenamos por nombre para que la búsqueda binaria funcione
             listaRecetas = listaRecetas.OrderBy(r => r.Nombre).ToList();
@@ -63,6 +85,7 @@ namespace APP.GESTORES
             return null; // No encontrado
         }
 
+
         // Implementación de Ordenamiento (Usando el método Sort de List que usa QuickSort/IntroSort)
         public void OrdenarPorTiempo()
         {
@@ -70,13 +93,5 @@ namespace APP.GESTORES
             listaRecetas.Sort((x, y) => x.TiempoMinutos.CompareTo(y.TiempoMinutos));
         }
 
-        public void MostrarCatalogo()
-        {
-            Console.WriteLine("\n--- Catálogo Global de Recetas ---");
-            foreach (var r in listaRecetas)
-            {
-                Console.WriteLine(r.ToString());
-            }
-        }
     }
 }

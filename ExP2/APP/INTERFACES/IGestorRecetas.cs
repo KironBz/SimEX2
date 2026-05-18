@@ -1,25 +1,24 @@
-﻿using APP.INTERFACES;
-using APP.GESTORES;
-using APP.MODELOS;
-
-namespace APP.INTERFACES
+﻿namespace APP.INTERFACES.IGESTORRECETAS
 {
-    public class IGestorRecetas
+    public class IGestorRecetas // Interface gestor -> Contrato con el gestor
     {
-        // Interface gestor -> Controla al gestor
-            public List<Receta> RecetasDisponibles { get; set; }
+        // Propiedades
+        public List<Receta> RecetasDisponibles { get; set; }
 
-            public void AgregarReceta(Receta receta);
-            public void EliminarReceta(Receta receta);
-            public void EliminarPorIndice(int indice);
-            public List<Receta> BuscarPorNombre(string nombre);
-            public void LimpiarCatalogo();
-            public void QuickSort(List<Receta> lista);
+        // -------------------------------------------------------------------------- Metodos ¿ LLevaria Metodos?
+        /*
+    //    public void AgregarReceta(Receta receta);
+    //    public void EliminarReceta(Receta receta);
+    //    public void EliminarPorIndice(int indice);
+    //    public List<Receta> BuscarPorNombre(string nombre);
+    //    public void LimpiarCatalogo();
+    //    public void QuickSort(List<Receta> lista);
 
 
-            public Receta BuscarPorNombre(string nombre); // Implementará Búsqueda Binaria
+    //    public Receta BuscarPorNombre(string nombre); // Implementará Búsqueda Binaria
 
-            // Aqui hay problemas
-            public void OrdenarPorTiempo(); // Implementará QuickSort o MergeSort
+        // Aqui hay problemas
+    //    public void OrdenarPorTiempo(); // Implementará QuickSort o MergeSort
+        */
     }
 }
