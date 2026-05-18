@@ -1,10 +1,8 @@
 using Xunit;
-using APP.MODELOS;
 using APP.GESTORES;
-using APP.INTERFACES;
 
-namespace PruebasExamen
-{
+namespace PruebasExamen;
+
     public class GestorRecetasTests
     {
         // 1. Agregar Receta / Eliminar Receta
@@ -21,27 +19,27 @@ namespace PruebasExamen
             g.AgregarReceta(receta);
 
             // Assert
-            Assert.Equal(1, g.RecetasDisponibles.Count);
+            Assert.Equal(1, g.listaRecetas.Count);
         }
 
         [Fact]
-        public void EliminarReceta_DisminuyeCount()
-        {
-            // Arrange
-            var g = new GestorRecetas();
-            var receta = new Receta("Test", "Chef", 10);
+    public void EliminarReceta_DisminuyeCount()
+    {
+        // Arrange
+        var g = new GestorRecetas(); 
+        var receta = new Receta("Paella", "Chef Ramirez", 45);
+        g.AgregarReceta(receta);
 
-            // Act
-            g.AgregarReceta(receta);
-            g.EliminarReceta(receta);
+        // Act
+        g.EliminarReceta(receta); 
 
-            // Assert
-            Assert.Equal(0, g.RecetasDisponibles.Count);
-        }
+        // Assert
+        Assert.Equal(0, g.RecetasDisponibles.Count);
+    }
 
-        // 2. BuscarPorNombre(Nombre)
+    // 2. BuscarPorNombre(Nombre)
 
-        [Fact]
+    [Fact]
         public void BuscarPorNombre_BusquedaParcial_caseInsensitive()
         {
             // Arrange
@@ -68,7 +66,6 @@ namespace PruebasExamen
             var resultados = g.BuscarPorNombre("Pizza");
 
             // Assert
-            Assert.Empty((System.Collections.IEnumerable)resultados);
+            Assert.Empty(resultados);
         }
     }
-}

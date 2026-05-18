@@ -1,7 +1,6 @@
-﻿using APP.GESTORES;
-using APP.INTERFACES;
-namespace APP.GESTORES
-{
+﻿
+namespace APP.GESTORES;
+
     public class GestorRecetas : IGestorRecetas
     {
         private List<Receta> listaRecetas;
