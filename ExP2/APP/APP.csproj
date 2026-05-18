@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SERVICIOS\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="GESTORES\GestorRecetas.cs" />
     <None Include="INTERFACES\IExportador.cs" />
     <None Include="INTERFACES\IGestorRecetas.cs" />

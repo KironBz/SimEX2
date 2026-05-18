@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace APP.INTERFACES
 {
-    internal class IExportador
+    public interface IExportador
     {
+        bool ExportarATxt(Usuario usuario, string nombreLibro);
     }
 }
