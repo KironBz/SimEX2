@@ -68,7 +68,7 @@ namespace PruebasExamen
             var resultados = g.BuscarPorNombre("Pizza");
 
             // Assert
-            Assert.Empty(resultados);
+            Assert.Empty((System.Collections.IEnumerable)resultados);
         }
     }
 }

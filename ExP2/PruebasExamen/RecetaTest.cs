@@ -15,7 +15,7 @@ namespace PruebasExamen
         public void PruebasDeReceta_DebeImplementarUnaReceta()
         {
             // Arrange
-            var receta = new Receta("Paella, "Chef Ramirez", 45);
+            var receta = new Receta("Paella", "Chef Ramirez", 45);
 
             // Assert
             Assert.Equal("Paella", receta.Nombre);
@@ -30,7 +30,7 @@ namespace PruebasExamen
         public void ToString_RegresaFormatoCorrecto()
         {
             // Arrange
-            var receta = new RecetaTest("Paella", "Chef Ramirez", 45);
+            var receta = new Receta("Paella", "Chef Ramirez", 45);
 
             // Act, Assert 
             Assert.Equal("Paella - Chef Ramirez(45 min)", receta.ToString());
