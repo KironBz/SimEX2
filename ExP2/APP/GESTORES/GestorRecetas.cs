@@ -1,4 +1,6 @@
-﻿using APP.INTERFACES.IGESTORRECETAS;
+﻿using APP.INTERFACES;
+using APP.GESTORES;
+using APP.MODELOS;
 namespace APP.GESTORES
 {
     public class GestorRecetas : IGestorRecetas
@@ -52,46 +54,33 @@ namespace APP.GESTORES
 
         public void LimpiarCatalogo()
         {
-
+            RecetasDisponibles.Clear();
         }
 
+        // Algoritmos
+        // 1ero - QuiclSort  -  Segun el tiempo se ordena de forma ascendente
 
 
 
+        // 2do - Regresa la lista ordenada?
 
 
-
-
-
-
-        public Receta BusquedaBinaria(string nombre)
+        // 3ro
+        public int BusquedaBinaria(string nombre)
         {
-            // Primero ordenamos por nombre para que la búsqueda binaria funcione
-            listaRecetas = listaRecetas.OrderBy(r => r.Nombre).ToList();
+            // Copia por nombre (sin modificar el original)
+            var copiaOrdenada = RecetasDisponibles.OrderBy(r => r.Nombre.ToLowerInvariant()).ToList();
 
-            int bajo = 0;
-            int alto = listaRecetas.Count - 1;
-
+            int bajo = 0, alto = copiaOrdenada.Count - 1;
             while (bajo <= alto)
             {
                 int medio = (bajo + alto) / 2;
-                int comparacion = string.Compare(listaRecetas[medio].Nombre, nombre, StringComparison.OrdinalIgnoreCase);
-
-                if (comparacion == 0) return listaRecetas[medio];
+                int comparacion = string.Compare(copiaOrdenada[medio].Nombre, nombre, StringComparison.OrdinalIgnoreCase);
+                if (comparacion == 0) return medio;  // retorna índice en la copia
                 if (comparacion < 0) bajo = medio + 1;
                 else alto = medio - 1;
             }
-
-            return null; // No encontrado
+            return -1;
         }
-
-
-        // Implementación de Ordenamiento (Usando el método Sort de List que usa QuickSort/IntroSort)
-        public void OrdenarPorTiempo()
-        {
-            // Ordena de menor a mayor tiempo
-            listaRecetas.Sort((x, y) => x.TiempoMinutos.CompareTo(y.TiempoMinutos));
-        }
-
     }
 }
