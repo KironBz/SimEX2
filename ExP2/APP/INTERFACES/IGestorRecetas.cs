@@ -1,4 +1,4 @@
-﻿namespace APP.INTERFACES.IGESTORRECETAS
+﻿namespace APP.INTERFACES
 {
     public class IGestorRecetas // Interface gestor -> Contrato con el gestor
     {
