@@ -2,15 +2,18 @@
 {
     public class Usuario
     {
+        // Propiedades
         public string Nombre { get; set; }
-        Dictionary<string, List<Receta>> LibrosRecetas;
+        public Dictionary<string, List<Receta>> LibrosRecetas { get; set; }
 
+        // Constructor
         public Usuario(string nombre)
         {
             Nombre = nombre;
             LibrosRecetas = new Dictionary<string, List<Receta>>();
         }
 
+        // Metodos
         public void CrearLibroRecetas(string nombreLibro)
         {
             if (LibrosRecetas.ContainsKey(nombreLibro))
@@ -26,26 +29,35 @@
 
             LibrosRecetas[nombreLibro].Add(receta);
         }
-        public void EliminarLibro(string nombreLibro, Receta receta)
+
+        public void EliminarLibro(string nombreLibro)
         {
+            /* NO LO PIDE
             if (!LibrosRecetas.ContainsKey(nombreLibro))
                 throw new KeyNotFoundException($"El libro '{nombreLibro}' no existe.");
+            */
 
             LibrosRecetas.Remove(nombreLibro);
         }
-        public List<Receta> ObtenerLibro(string nombreLibro)
+
+        public List<Receta> ObtenerLibro(string nombreLibro) // ------------------------------ Podria Fallar
         {
+            /* NO LO PIDE
             if (!LibrosRecetas.ContainsKey(nombreLibro))
                 throw new KeyNotFoundException($"El libro '{nombreLibro}' no existe.");
+             */
 
             return LibrosRecetas[nombreLibro];
         }
+
         public int ContarRecetas(string nombreLibro)
         {
+            /*
             if (!LibrosRecetas.ContainsKey(nombreLibro))
                 throw new KeyNotFoundException($"El libro '{nombreLibro}' no existe.");
+            */
 
-            return LibrosRecetas[nombreLibro].Count;
+            return LibrosRecetas[nombreLibro].Count;// ------------------------------ Podria Ser -1
         }
         public void MostrarLibros()
         {

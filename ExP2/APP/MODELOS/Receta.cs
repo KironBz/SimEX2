@@ -1,11 +1,15 @@
 ﻿namespace APP.MODELOS
 {
+    using APP.INTERFACES;
+
     public class Receta : IReceta
     {
+        // Propiedades
         public string Nombre { get; set; }
         public string Chef { get; set; }
         public int TiempoMinutos { get; set; }
 
+        // Constructor
         public Receta(string nombre, string chef, int tiempoMinutos)
         {
             if (tiempoMinutos <= 0)
@@ -15,9 +19,11 @@
             Chef = chef;
             TiempoMinutos = tiempoMinutos;
         }
+
+        // Metodos
         public override string ToString()
         {
-            return $"Nombre:{Nombre} - Chef: {Chef} ({TiempoMinutos} min)";
+            return $"{Nombre} - {Chef} ({TiempoMinutos} min)";
         }
     }
 }
